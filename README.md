@@ -1,4 +1,4 @@
-# fast_track_de-
+# fast_track_de
 Trilha Fast Track 
 
 - Nome: Geraldo Moratto Junior
