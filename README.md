@@ -12,6 +12,5 @@ Sobre o projeto e as etapas de desenvolvimento:
 
 ## Link para o README do projeto
 
-```markdown
-- [Detalhes do projeto-i -> ](./projeto-i/README.md)
-```
+- [Detalhes do projeto-i →](projeto-i/README.md)
+
