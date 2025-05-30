@@ -105,8 +105,6 @@ Este projeto utiliza a **modelagem estrela**, onde temos:
 ## Arquivos Utilizados
 
 - `etl.py`: script principal
-- `database.py`: abstrações para conexão com PostgreSQL e MongoDB
-- `logger_config.py`: configuração centralizada de logs
 - `Dockerfile`: imagem personalizada para rodar o script Python
 - `docker-compose.yml`: orquestração dos serviços (Python, PostgreSQL, MongoDB)
 - `requirements.txt`: bibliotecas Python necessárias
