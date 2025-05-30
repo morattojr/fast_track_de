@@ -13,5 +13,5 @@ Sobre o projeto e as etapas de desenvolvimento:
 ## Link para o README do projeto
 
 ```markdown
-- [Projeto I – Pipeline ETL com Python, PostgreSQL e MongoDB](projeto-i/README.md)
+- [Detalhes do projeto-i -> ](./README.md)
 ```
