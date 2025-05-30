@@ -10,4 +10,7 @@ Trilha Fast Track
 
 Sobre o projeto e as etapas de desenvolvimento:
 
-(Em andamento).
+## Link para o README do projeto
+
+- [Detalhes do projeto-i →](projeto-i/README.md)
+
