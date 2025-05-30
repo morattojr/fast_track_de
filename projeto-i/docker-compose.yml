@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pb_dw
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-init:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - etl_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./mongodb-init:/docker-entrypoint-initdb.d
+    networks:
+      - etl_net
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --eval 'db.adminCommand(\"ping\").ok' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  python-etl:
+    build:
+      context: ./python_etl
+      dockerfile: docker/Dockerfile
+    container_name: python-etl
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    volumes:
+      - ./input:/app/input
+    networks:
+      - etl_net
+    command: ["python", "etl.py"]
+
+volumes:
+  postgres_data:
+  mongo_data:
+
+networks:
+  etl_net:
+    driver: bridge
