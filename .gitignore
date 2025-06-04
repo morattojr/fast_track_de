@@ -38,3 +38,7 @@ projeto-i/input/*
 projeto-tmdb/__pycache__/
 projeto-tmdb/.env*
 projeto-tmdb/.venv/
+projeto-tmdb/.env.tmdb
+projeto-tmdb/.gitignore
+
+projeto-i/.gitignore
