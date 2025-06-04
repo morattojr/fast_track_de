@@ -1,1 +1,40 @@
+# === Configurações Globais ===
+# Arquivos do sistema
 .DS_Store
+Thumbs.db
+
+# Ambiente Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+dist/
+build/
+
+# Ambientes virtuais
+.venv/
+venv/
+
+# IDEs e editores
+.vscode/
+.idea/
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# === Configurações por Projeto ===
+# projeto-i
+projeto-i/input/*
+!projeto-i/input/.gitkeep
+
+# projeto-tmdb
+projeto-tmdb/__pycache__/
+projeto-tmdb/.env*
+projeto-tmdb/.venv/
