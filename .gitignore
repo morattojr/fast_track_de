@@ -34,11 +34,11 @@ venv/
 projeto-i/input/*
 !projeto-i/input/.gitkeep
 
-# projeto-tmdb
-projeto-tmdb/__pycache__/
-projeto-tmdb/.env*
-projeto-tmdb/.venv/
-projeto-tmdb/.env.tmdb
-projeto-tmdb/.gitignore
-
 projeto-i/.gitignore
+# projeto-tmdb
+
+projeto-tmdb/.venv/
+projeto-tmdb/src/__pycache__/
+projeto-tmdb/src/__init__.py
+projeto-tmdb/.env.tmdb
+projeto-tmdb/.env*
