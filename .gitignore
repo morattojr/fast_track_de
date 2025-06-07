@@ -36,9 +36,21 @@ projeto-i/input/*
 
 projeto-i/.gitignore
 # projeto-tmdb
-
 projeto-tmdb/.venv/
 projeto-tmdb/src/__pycache__/
 projeto-tmdb/src/__init__.py
 projeto-tmdb/.env.tmdb
 projeto-tmdb/.env*
+
+# === Projeto Data Lake ===
+# Ignorar dados gerados no Data Lake
+data-lake/
+
+# Ignorar arquivos CSV e ZIP na pasta de entrada
+data/input/*.csv
+data/input/*.zip
+!data/input/.gitkeep
+
+# Cache de execução do Python
+projeto-datalake/__pycache__/
+projeto-datalake/scripts/__pycache__/
