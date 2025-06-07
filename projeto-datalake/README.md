@@ -1,5 +1,4 @@
 
-```markdown
 # Ingestão de Dados para o Data Lake (Camada Raw)
 
 Este diretório contém o script responsável por realizar a **ingestão dos dados da fonte local para a camada Raw do Data Lake**, em modo batch.
@@ -42,10 +41,10 @@ docker-compose up --build
 fast_track_de/
 ├── data/
 │   └── input/
-│       └── movies.csv         ← Fonte de dados (arquivo original)
+│       └── movies.csv         ← Fonte de dados
 ├── projeto-datalake/
 │   ├── scripts/
-│   │   └── ingest_raw.py      ← Script de ingestão
+│   │   └── ingestao_raw.py      ← Script de ingestão
 │   ├── docker/
 │   │   └── Dockerfile
 │   └── docker-compose.yml     ← Define o serviço ETL
@@ -78,5 +77,3 @@ fast_track_de/
 * A separação do diretório `data/input` fora de `projeto-datalake` segue boas práticas de organização, separando claramente a **fonte externa** da **estrutura do data lake**.
 
 ```
-
----
