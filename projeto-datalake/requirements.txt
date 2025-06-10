@@ -1,0 +1,10 @@
+requests
+python-dotenv
+psycopg2-binary
+pyspark==3.5.1
+tqdm
+psycopg2-binary
+pandas==2.2.3
+numpy==2.1.1
+
+

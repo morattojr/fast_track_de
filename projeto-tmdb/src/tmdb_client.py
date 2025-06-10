@@ -9,7 +9,7 @@ API_KEY = os.getenv("TMDB_API_KEY")
 
 def buscar_filmes_populares(ano=2025):
     if not API_KEY:
-        raise ValueError("⚠️ API Key não encontrada. Verifique seu arquivo .env")
+        raise ValueError("API Key não encontrada. Verifique seu arquivo .env")
 
     url = (
         f"https://api.themoviedb.org/3/discover/movie?"

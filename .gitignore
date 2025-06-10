@@ -45,6 +45,7 @@ projeto-tmdb/.env*
 # === Projeto Data Lake ===
 # Ignorar dados gerados no Data Lake
 data-lake/
+projeto-datalake/.env*
 
 # Ignorar arquivos CSV e ZIP na pasta de entrada
 data/input/*.csv
