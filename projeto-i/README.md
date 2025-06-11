@@ -112,6 +112,14 @@ Este projeto utiliza a **modelagem estrela**, onde temos:
 
 ---
 
+4. **Para a execução configure as variaveis de ambiente**
+
+Copie o arquivo `.env.example` para `.env`:
+
+```bash
+cp .env.example .env
+```
+
 ## Execução com Docker Compose
 
 Este projeto roda inteiramente com Docker Compose:
@@ -124,7 +132,7 @@ O script `etl.py` é executado automaticamente ao subir o container Python. Ele 
 
 ---
 
-## Visualização dos Dados
+## Visualização dos Dados (Usuario e senha incluidos pois é um script de testes).
 
 Após a execução, você pode visualizar os dados usando:
 

@@ -5,25 +5,38 @@ from pymongo import MongoClient, errors as mongo_errors
 from datetime import datetime
 import time
 import logging
+from dotenv import load_dotenv
+import os
+
+# Carrega variáveis de ambiente do arquivo .env
+load_dotenv()
+
+# Valida variáveis de ambiente
+required_vars = ["PG_HOST", "PG_DBNAME", "PG_USER", "PG_PASSWORD", "PG_PORT", "MONGO_HOST", "MONGO_PORT", "MONGO_DBNAME", "MONGO_COLLECTION"]
+missing_vars = [var for var in required_vars if not os.getenv(var)]
+if missing_vars:
+    raise ValueError(f"Variáveis de ambiente ausentes: {', '.join(missing_vars)}")
 
 # Configuração do logger
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger()
 
-def wait_for_services(max_retries=10, delay=5):
+def wait_for_services(max_retries=20, delay=10):
     for attempt in range(1, max_retries + 1):
         try:
             # Testa conexão com PostgreSQL
             pg_conn = psycopg2.connect(
-                host="postgres",
-                dbname="pp_dd",
-                user="postgres",
-                password="postgres"
+                host=os.getenv("PG_HOST"),
+                dbname=os.getenv("PG_DBNAME"),
+                user=os.getenv("PG_USER"),
+                password=os.getenv("PG_PASSWORD"),
+                port=os.getenv("PG_PORT")
             )
             pg_conn.close()
 
             # Testa conexão com MongoDB
-            mongo_client = MongoClient("mongodb://mongo:27017/", serverSelectionTimeoutMS=3000)
+            mongo_uri = f"mongodb://{os.getenv('MONGO_HOST')}:{os.getenv('MONGO_PORT')}/"
+            mongo_client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
             mongo_client.admin.command('ping')
             mongo_client.close()
 
@@ -100,8 +113,9 @@ def load_and_transform_data():
     products = pd.read_csv("input/olist_products_dataset.csv")
     payments = pd.read_csv("input/olist_order_payments_dataset.csv")
 
-    client = MongoClient("mongodb://mongo:27017/")
-    reviews_cursor = client['ecommerce']['order_reviews'].find()
+    mongo_uri = f"mongodb://{os.getenv('MONGO_HOST')}:{os.getenv('MONGO_PORT')}/"
+    client = MongoClient(mongo_uri)
+    reviews_cursor = client[os.getenv('MONGO_DBNAME')][os.getenv('MONGO_COLLECTION')].find()
     reviews = pd.DataFrame(list(reviews_cursor))
 
     return customers, orders, order_items, products, payments, reviews
@@ -164,7 +178,9 @@ def load_fact_sales(cursor, orders, order_items, customers, products, payments, 
               .merge(payments, on='order_id', how='inner')
               .merge(reviews[['order_id', 'review_score']], on='order_id', how='left')
     )
+    logger.info(f"Linhas no DataFrame após merge: {len(df)}")
 
+    insert_count = 0
     for _, row in df.iterrows():
         try:
             order_date = row['order_purchase_timestamp'].date()
@@ -192,8 +208,13 @@ def load_fact_sales(cursor, orders, order_items, customers, products, payments, 
                     int(row['payment_installments']) if pd.notna(row['payment_installments']) else None,
                     float(row['payment_value'])
                 ))
+                insert_count += 1
+            else:
+                logger.warning(f"Falha na inserção para order_id {row['order_id']}: date_id={'Não encontrado' if not date_result else date_result[0]}, payment_type_id={'Não encontrado' if not payment_type_result else payment_type_result[0]}")
         except Exception as e:
             logger.error(f"Erro ao inserir venda - Order ID {row['order_id']}: {e}")
+    
+    logger.info(f"Total de linhas inseridas em fact_sales: {insert_count}")
 
 def main():
     try:
@@ -202,10 +223,11 @@ def main():
         customers, orders, order_items, products, payments, reviews = load_and_transform_data()
 
         conn = psycopg2.connect(
-            host="postgres",
-            dbname="pp_dd",
-            user="postgres",
-            password="postgres"
+            host=os.getenv("PG_HOST"),
+            dbname=os.getenv("PG_DBNAME"),
+            user=os.getenv("PG_USER"),
+            password=os.getenv("PG_PASSWORD"),
+            port=os.getenv("PG_PORT")
         )
         cursor = conn.cursor()
 
@@ -234,3 +256,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
