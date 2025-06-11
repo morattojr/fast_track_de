@@ -22,7 +22,7 @@ venv/
 .idea/
 
 # Variáveis de ambiente
-
+.env
 
 # Logs
 *.log
@@ -31,6 +31,7 @@ venv/
 # projeto-i
 projeto-i/input/*
 !projeto-i/input/.gitkeep
+projeto-i/.env
 
 # projeto-tmdb
 projeto-tmdb/.venv/
