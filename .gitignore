@@ -22,9 +22,7 @@ venv/
 .idea/
 
 # Variáveis de ambiente
-.env
-.env.*
-!.env.example
+
 
 # Logs
 *.log
@@ -34,7 +32,6 @@ venv/
 projeto-i/input/*
 !projeto-i/input/.gitkeep
 
-projeto-i/.gitignore
 # projeto-tmdb
 projeto-tmdb/.venv/
 projeto-tmdb/src/__pycache__/
