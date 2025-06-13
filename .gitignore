@@ -52,3 +52,5 @@ data/input/*.zip
 # Cache de execução do Python
 projeto-datalake/__pycache__/
 projeto-datalake/scripts/__pycache__/
+
+movies-pipeline-databriks/.env
